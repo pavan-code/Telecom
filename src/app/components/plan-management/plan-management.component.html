@@ -1,0 +1,81 @@
+<div *ngIf="plans.length==0" class="spinner"  style="text-align: center; position: absolute; top: 40%; left: 40%;">
+  <mat-spinner style="margin: 0 auto;" diameter="100" strokeWidth="2"></mat-spinner>
+  <h3>Getting all plans...</h3>
+</div>
+<div class="data">
+  <div fxFlexLayout="row" fxLayoutAlign="space-between">
+    <button (click)="addPlan()" mat-button> <mat-icon>add</mat-icon> Add Plan</button>
+    <mat-form-field appearance="outline">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+    </div>
+    <!-- <br> -->
+    <table mat-table [dataSource]="dataSource" matSort 
+        class="mat-elevation-z8">
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+          S.No.
+        </th>
+        <td mat-cell *matCellDef="let element;"> {{element.id}} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="operator">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by operator">
+          Operator
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.operator | titlecase}} </td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="info">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by info">
+          Description
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.info}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by amount">
+          Amount
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+      </ng-container>
+    
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by duration">
+              Validity
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.duration}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by duration">
+              Actions
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="editPlan(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deletePlan(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+        
+    
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    
+    
+</div>

@@ -1,0 +1,71 @@
+<div class="body" [ngClass]="{ 'dark-theme': isDarkMode }">
+  <mat-toolbar color="primary" fxLayoutAlign="space-between center">
+    <mat-slide-toggle [(ngModel)]="isDarkMode"></mat-slide-toggle>
+    <div fxFlex="1 1 auto">
+      <button
+        mat-icon-button
+        class="example-icon"
+        (click)="drawer.toggle()"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Telecom Billing System</span> &nbsp;
+    </div>
+    <span fxFlex="1 1 auto"
+      >Welcome {{ username | titlecase }}
+      <button mat-stroked-button (click)="logout()">
+        Logout
+        <mat-icon>logout</mat-icon>
+      </button>
+    </span>
+  </mat-toolbar>
+
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="opened">
+      <mat-selection-list>
+        <mat-list-item *ngIf="actor == 'admin'">
+          <button routerLink="/admin/mobile-management" mat-button>
+            Mobile Number Management
+          </button>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="actor == 'admin'">
+          <button mat-button [matMenuTriggerFor]="menu">
+            Staff Management
+          </button>
+          <mat-menu #menu="matMenu">
+            <button routerLink="/admin/add-staff" mat-menu-item>
+              Add Staff
+            </button>
+            <button routerLink="/admin/manage-staff" mat-menu-item>
+              Manage Staff
+            </button>
+          </mat-menu>
+        </mat-list-item>
+        <mat-list-item *ngIf="actor == 'admin'">
+          <button routerLink="/admin/plan-management" mat-button>
+            Plan Management
+          </button>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="actor == 'staff'">
+          <button mat-button [matMenuTriggerFor]="menu">
+            Customer Management
+          </button>
+          <mat-menu #menu="matMenu">
+            <button routerLink="/staff/add-customer" mat-menu-item>
+              Add Customer
+            </button>
+            <button routerLink="/staff/customer-management" mat-menu-item>
+              Manage Customers
+            </button>
+          </mat-menu>
+        </mat-list-item>
+      </mat-selection-list>
+    </mat-drawer>
+    <div class="example-sidenav-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-container>
+</div>

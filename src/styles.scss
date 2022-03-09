@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/theming";
+@include mat-core();
+
+$light-primary: mat-palette($mat-indigo);
+$light-accent: mat-palette($mat-amber);
+$light-warn: mat-palette($mat-red);
+$light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+// @include angular-material-theme($light-theme);
+
+$dark-primary: mat-palette($mat-grey);
+$dark-accent: mat-palette($mat-blue-grey);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent);
+
+.dark-theme {
+  // @include angular-material-theme($dark-theme);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.success {
+  background: #4caf50;
+}
+.error {
+  background: #f44336;
+}

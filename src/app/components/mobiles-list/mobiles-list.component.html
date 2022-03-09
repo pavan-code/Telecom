@@ -1,0 +1,35 @@
+<h2>List of Mobiles</h2>
+<mat-accordion>
+  <mat-expansion-panel hideToggle *ngFor="let mob of mobiles; let i = index">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ i + 1 }}. &nbsp;
+        <img
+          src="../../../assets/images/{{ mob.operator }}.png"
+          width="70"
+          height="auto"
+          alt=""
+        />
+      </mat-panel-title>
+      <mat-panel-description fxLayoutAlign="space-between center">
+        <div fxLayoutAlign="center" fxLayoutGap="10px">
+          <mat-icon>call</mat-icon>
+          +91 {{ mob.number }}
+        </div>
+        <span>
+          {{ mob.band }}
+        </span>
+        <span
+          [ngClass]="mob.active == true ? 'success' : 'error'"
+          style="width: 30px; height: 30px; border-radius: 50%"
+        ></span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div *ngIf="mob.subscriptions">
+      <div *ngFor="let sub of mob.subscriptions">
+        {{ sub.startdata }} {{ sub.enddate }}
+      </div>
+    </div>
+    <h3 *ngIf="mob.subscriptions.length == 0">No Subscriptions available</h3>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,166 @@
+<div
+  *ngIf="show"
+  class="spinner"
+  style="text-align: center; position: absolute; top: 40%; left: 40%"
+>
+  <mat-spinner
+    style="margin: 0 auto"
+    diameter="100"
+    strokeWidth="2"
+  ></mat-spinner>
+  <h3>Adding new Staff member...</h3>
+</div>
+
+<div class="body" *ngIf="!show">
+  <!-- <pre>{{ form.value | json }}</pre> -->
+  <h2>Add Staff Member</h2>
+  <form [formGroup]="form" action="" fxLayout="column">
+    <!-- checkbox active status -->
+    <h3>Personal Information</h3>
+    <div class="row1" fxLayout="row">
+      <mat-form-field appearance="outline" fxFlex="1 1 auto">
+        <mat-label>First Name</mat-label>
+        <input matInput name="firstName" formControlName="firstname" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex="1 1 auto">
+        <mat-label>Last Name</mat-label>
+        <input matInput name="lastName" formControlName="lastname" />
+      </mat-form-field>
+    </div>
+    <div class="row2" fxLayout="row">
+      <mat-form-field appearance="outline" fxFlex="1 1 auto">
+        <mat-label>Email</mat-label>
+        <input matInput name="email" formControlName="email" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex="1 1 auto">
+        <mat-label>Aadhar Number</mat-label>
+        <input matInput name="aadharNumber" formControlName="aadharNumber" />
+      </mat-form-field>
+    </div>
+    <mat-checkbox formControlName="active" color="accent"> Active</mat-checkbox>
+    <hr />
+    <!-- address -->
+    <h3>Address</h3>
+    <div formGroupName="address">
+      <div class="row3" fxLayout="row">
+        <mat-form-field appearance="outline" fxFlex="1 1 auto">
+          <mat-label>Door No.</mat-label>
+          <input matInput name="doorno" formControlName="doorno" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="1 1 auto">
+          <mat-label>Street</mat-label>
+          <input matInput name="street" formControlName="street" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="1 1 auto">
+          <mat-label>City</mat-label>
+          <input matInput name="city" formControlName="city" />
+        </mat-form-field>
+      </div>
+      <div class="row4" fxLayout="row">
+        <mat-form-field appearance="outline" fxFlex="1 1 auto">
+          <mat-label>District</mat-label>
+          <input matInput name="district" formControlName="district" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="1 1 auto">
+          <mat-label>State</mat-label>
+          <input matInput name="state" formControlName="state" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="1 1 auto">
+          <mat-label>Pincode</mat-label>
+          <input matInput name="pincode" formControlName="pincode" />
+        </mat-form-field>
+      </div>
+    </div>
+    <hr />
+    <div formArrayName="mobiles">
+      <div *ngFor="let mobile of mobiles().controls; let i = index">
+        <span>Mobile {{ i + 1 }}</span>
+        <!-- delete button -->
+        <button
+          *ngIf="i != 0"
+          mat-icon-button
+          color="warn"
+          (click)="removeMobile(i)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <div [formGroupName]="i">
+          <div fxLayout="row" fxLayoutGap="20px">
+            <mat-form-field appearance="outline" class="spec-width">
+              <mat-label>Number</mat-label>
+              <input type="tex" matInput formControlName="number" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="spec-width">
+              <mat-label>Operator </mat-label>
+              <mat-select formControlName="operator">
+                <mat-option value="">Select Operator</mat-option>
+                <mat-option value="airtel">Airtel</mat-option>
+                <mat-option value="bsnl">BSNL</mat-option>
+                <mat-option value="idea">Idea</mat-option>
+                <mat-option value="jio">Jio</mat-option>
+                <mat-option value="vodafone">Vodafone</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-radio-group formControlName="band">
+              <mat-radio-button value="3G">3G &nbsp;</mat-radio-button>
+              <mat-radio-button value="4G">4G &nbsp;</mat-radio-button>
+              <mat-radio-button value="5G">5G &nbsp;</mat-radio-button>
+            </mat-radio-group>
+
+            <section>
+              <mat-checkbox formControlName="active">Active</mat-checkbox>
+            </section>
+          </div>
+
+          <div formArrayName="subscriptions">
+            <div *ngFor="let sub of subs(i).controls; let j = index">
+              <span>Subscription {{ j + 1 }}</span>
+
+              <button mat-icon-button color="warn" (click)="removeSub(i, j)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <div [formGroupName]="j">
+                <mat-form-field appearance="outline" class="spec-width">
+                  <mat-label>start data </mat-label>
+                  <input type="date" matInput formControlName="startDate" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="spec-width">
+                  <mat-label>End date</mat-label>
+                  <input type="date" matInput formControlName="endDate" />
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- <button
+              (click)="addSubs(i)"
+              type="button"
+              mat-stroked-button
+              color="primary"
+            >
+              <mat-icon>add</mat-icon> Subscription
+            </button> -->
+          </div>
+        </div>
+      </div>
+
+      <button
+        (click)="addMobile()"
+        type="button"
+        mat-stroked-button
+        color="accent"
+      >
+        <mat-icon>add</mat-icon> Add another mobile
+      </button>
+    </div>
+    <br />
+  </form>
+  <button
+    mat-stroked-button
+    (click)="addStaff()"
+    color="accent"
+    [disabled]="!form.valid"
+  >
+    Save Details
+  </button>
+</div>

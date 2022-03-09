@@ -1,0 +1,41 @@
+<div class="body">
+  <mat-toolbar color="primary" fxLayoutAlign="space-around center">
+    <div fxFlex="1 1 auto">
+      <button
+        mat-icon-button
+        class="example-icon"
+        (click)="drawer.toggle()"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Telecom Billing System</span> &nbsp;
+    </div>
+    <span fxFlex="1 1 auto"> {{ actor | titlecase }} </span>
+
+    <button mat-stroked-button (click)="logout()">Logout</button>
+  </mat-toolbar>
+
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="opened">
+      <mat-selection-list>
+        <mat-list-item>
+          <button mat-button [matMenuTriggerFor]="menu">
+            Customer Management row
+          </button>
+          <mat-menu #menu="matMenu">
+            <button routerLink="/staff/add-customer" mat-menu-item>
+              Add Customer
+            </button>
+            <button routerLink="/staff/customer-management" mat-menu-item>
+              Customer Management
+            </button>
+          </mat-menu>
+        </mat-list-item>
+      </mat-selection-list>
+    </mat-drawer>
+    <div class="example-sidenav-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-container>
+</div>

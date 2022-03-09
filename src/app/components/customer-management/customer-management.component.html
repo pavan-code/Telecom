@@ -1,0 +1,204 @@
+<div
+  *ngIf="staff.length == 0"
+  class="spinner"
+  style="text-align: center; position: absolute; top: 40%; left: 40%"
+>
+  <mat-spinner
+    style="margin: 0 auto"
+    diameter="100"
+    strokeWidth="2"
+  ></mat-spinner>
+  <h3>Getting customers...</h3>
+</div>
+
+<div class="data">
+  <div fxFlexLayout="row" fxLayoutAlign="space-between">
+    <button mat-button routerLink="/staff/add-customer">
+      <mat-icon>add</mat-icon> New Customer
+    </button>
+    <mat-form-field appearance="outline">
+      <mat-label>Filter</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. ium"
+        #input
+      />
+    </mat-form-field>
+  </div>
+
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    multiTemplateDataRows
+    matSort
+    class="mat-elevation-z8"
+  >
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by number"
+      >
+        ID
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by number"
+      >
+        Name
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.firstname }} {{ element.lastname }}
+      </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="email">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by operator"
+      >
+        Email ID
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="aadhar">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by band"
+      >
+        Aadhar
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.aadharNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by band"
+      >
+        Address
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.address.city }},&nbsp;{{ element.address.state }},&nbsp;
+        {{ element.address.country }}
+        {{ element.address.pincode }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by band"
+      >
+        Actions
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="editCustomer(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteCustomer(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td
+        style="padding-left: 0"
+        mat-cell
+        *matCellDef="let element"
+        [attr.colspan]="displayedColumns.length"
+      >
+        <div
+          class="example-element-detail"
+          [@detailExpand]="
+            element == expandedElement ? 'expanded' : 'collapsed'
+          "
+        >
+          <div class="example-element-diagram">
+            <td
+              fxLayout="row"
+              fxLayoutGap="10px"
+              mat-cell
+              fxLayoutAlign="space-between center"
+              *ngFor="let mob of element.mobiles; let mi = index"
+            >
+              <div style="visibility: hidden">Mob</div>
+              {{ mi + 1 }}.
+              <div>
+                <img
+                  width="30px"
+                  height="auto"
+                  src="./assets/images/{{ mob.operator }}.png"
+                />
+              </div>
+              +91 {{ mob.number }} &nbsp;
+              <span
+                [ngClass]="mob.active == true ? 'success' : 'error'"
+                style="width: 20px; height: 20px; border-radius: 50%"
+              ></span>
+              <div
+                class="subs"
+                [hidden]="mob.subscriptions.length == 0"
+                *ngIf="mob.subscriptions"
+              >
+                <span *ngFor="let sub of mob.subscriptions">
+                  Plan expires on {{ sub.endDate | date: "mediumDate" }}
+                </span>
+              </div>
+              <div class="nosubs" *ngIf="mob.subscriptions.length == 0">
+                <span>No Subscriptions available</span>
+              </div>
+            </td>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr
+      mat-row
+      *matRowDef="let element; columns: displayedColumns"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['expandedDetail']"
+      class="example-detail-row"
+    ></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page of users"
+  ></mat-paginator>
+</div>

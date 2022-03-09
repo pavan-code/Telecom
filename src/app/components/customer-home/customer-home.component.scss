@@ -1,0 +1,12 @@
+.example-container {
+  height: calc(100vh - 64px);
+  .example-sidenav {
+    width: 20%;
+  }
+}
+.example-sidenav-content {
+  padding: 20px;
+}
+.body {
+  height: 100vh;
+}

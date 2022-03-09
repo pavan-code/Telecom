@@ -1,0 +1,52 @@
+<h2 mat-dialog-title style="text-align: center;">Add New Number</h2>
+<div *ngIf="show" class="spinner"  style="text-align: center;">
+    <mat-spinner style="margin: 0 auto;" diameter="100" strokeWidth="2"></mat-spinner>
+    <h3>Adding new number..</h3>
+</div>
+<div *ngIf="!show" mat-dialog-content>
+  <form [formGroup]="form" fxFlexLayout="column">
+    <div fxFlexLayout="row" fxLayoutAlign="space-between">
+      <mat-form-field fxFlex="45" appearance="outline">
+        <mat-label>Operator</mat-label>
+        <mat-select formControlName="operator">
+          <mat-option value="">Select Operator</mat-option>
+          <mat-option value="airtel">Airtel</mat-option>
+          <mat-option value="aircel">Aircel</mat-option>
+          <mat-option value="idea">Idea</mat-option>
+          <mat-option value="vodafone">Vodafone</mat-option>
+          <mat-option value="reliance">Reliance</mat-option>
+          <mat-option value="tata">Tata</mat-option>
+          <mat-option value="bsnl">BSNL</mat-option>
+          <mat-option value="mtnl">MTNL</mat-option>
+          <mat-option value="mts">MTS</mat-option>
+          <mat-option value="jio">Jio</mat-option>
+          <mat-option value="docomo">Docomo</mat-option>
+          <mat-option value="virgin">Virgin</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="50" appearance="outline">
+        <mat-label>Mobile Number</mat-label>
+        <input matInput type="number" formControlName="number" />
+      </mat-form-field>
+    </div>
+    <div fxFlexLayout="row" fxLayoutALign="center center">
+      <div fxFlex="50">
+        <label>Band: &nbsp;</label>
+        <mat-radio-group formControlName="band">
+          <mat-radio-button value="3G">3G &nbsp;</mat-radio-button>
+          <mat-radio-button value="4G">4G &nbsp;</mat-radio-button>
+          <mat-radio-button value="5G">5G &nbsp;</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div fxFlex="50">
+        <section class="example-section">
+          <mat-checkbox formControlName="active">Active</mat-checkbox>
+        </section>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="addMobile()">Add</button>
+  <button mat-button mat-dialog-close>Close</button>
+</div>

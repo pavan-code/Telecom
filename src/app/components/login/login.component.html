@@ -1,0 +1,40 @@
+<mat-card fxLayout="column" class="login-box">
+  <h1 *ngIf = "!show" mat-card-title>Login</h1>
+  <div class="spinner" *ngIf = "show">
+    <mat-spinner diameter="100" strokeWidth="2"></mat-spinner> <br>
+    <p>Logging in..</p>
+  </div>
+  <form fxLayout="column" *ngIf = "!show" [formGroup]="loginForm" (ngSubmit)="login()">
+    
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Email ID" formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        placeholder="Password"
+        formControlName="password"
+        type="password"
+        />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="type">
+        <mat-option selected value="">--select user--</mat-option>
+        <mat-option value="customer">Customer</mat-option>
+        <mat-option value="staff">Staff</mat-option>
+        <mat-option value="admin">Admin</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+      class="btn btn-primary"
+      [disabled]="!loginForm.valid"
+    >
+      Login
+    </button>
+  </form>
+</mat-card>
