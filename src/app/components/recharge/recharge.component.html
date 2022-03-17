@@ -2,9 +2,93 @@
   <div class="text">
     <h2>Recharge with new plans available</h2>
   </div>
-  <div class="input">
-    <mat-select>
-      <mat-option> </mat-option>
-    </mat-select>
+  <div style="height: 56px" fxLayout="row" fxLayoutGap="20px">
+    <mat-form-field appearance="outline">
+      <mat-label>Select Mobile</mat-label>
+      <mat-select (selectionChange)="mobileChange($event)">
+        <mat-option selected="true" value="">--select mobile--</mat-option>
+        <mat-option
+          *ngFor="let mobile of userMobiles"
+          value="{{ mobile.number }}"
+        >
+          {{ mobile.number }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="operator" fxLayout="row" fxLayoutAlign="none center">
+      <mat-chip-list *ngIf="numberSelected" aria-label="Fish selection">
+        Operator:
+        <mat-chip>
+          <mat-chip-avatar>
+            <img
+              width="16px"
+              src="../../../assets/images/{{ operator }}.png"
+              alt="Photo of a Shiba Inu"
+            />
+          </mat-chip-avatar>
+          {{ operator | titlecase }} prepaid
+        </mat-chip>
+        State:
+        <mat-chip> {{ state }} </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+  <div class="spinner" *ngIf="numberSelected && !plans">
+    <mat-spinner diameter="100" strokeWidth="2"></mat-spinner> <br />
+    <span>Getting plans from operator</span>
+  </div>
+  <br />
+  <div class="cards">
+    <mat-grid-list cols="3" rowHeight="200px" gutterSize="10px">
+      <mat-grid-tile
+        routerLink="/customer/{{ id }}/{{ mid }}/payment/{{ plan.id }}"
+        *ngFor="let plan of plans"
+      >
+        <mat-card>
+          <mat-card-header>
+            <div
+              mat-card-avatar
+              style="
+                border: 1px solid #ccc;
+                border-radius: 50%;
+                font-size: 30px;
+                width: 40px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 40px;
+                font-weight: bolder;
+                color: red;
+              "
+            >
+              <span> {{ plan.operator | uppercase | slice: 0:1 }} </span>
+            </div>
+            <mat-card-title>₹ {{ plan.amount }} </mat-card-title>
+            <mat-card-subtitle>
+              Duration: {{ plan.duration }} days
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content fxLayoutGap="20px">
+            <div class="plan" fxLayout="column">
+              <table>
+                <tr>
+                  <td><b>Calls:</b></td>
+                  <td colspan="3">{{ plan.calls }}</td>
+                </tr>
+                <tr>
+                  <td><b>Data:</b></td>
+                  <td>{{ plan.data }}</td>
+                  <td><b>SMS: </b></td>
+                  <td>{{ plan.sms }}</td>
+                </tr>
+                <tr *ngIf="plan.benefits">
+                  <td><b>Benefits: </b></td>
+                  <td colspan="3">{{ plan.benefits }}</td>
+                </tr>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
   </div>
 </div>

@@ -27,6 +27,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatChipsModule } from '@angular/material/chips';
 
 // components
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -47,6 +49,8 @@ import { CustomerHomeComponent } from './components/customer-home/customer-home.
 import { CustomerProfileComponent } from './components/customer-profile/customer-profile.component';
 import { MobilesListComponent } from './components/mobiles-list/mobiles-list.component';
 import { RechargeComponent } from './components/recharge/recharge.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { MsgdialogComponent } from './components/msgdialog/msgdialog.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +72,8 @@ import { RechargeComponent } from './components/recharge/recharge.component';
     CustomerProfileComponent,
     MobilesListComponent,
     RechargeComponent,
+    PaymentComponent,
+    MsgdialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +102,8 @@ import { RechargeComponent } from './components/recharge/recharge.component';
     MatCheckboxModule,
     MatMenuModule,
     MatSlideToggleModule,
+    MatGridListModule,
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

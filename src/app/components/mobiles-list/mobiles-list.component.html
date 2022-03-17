@@ -6,7 +6,7 @@
         {{ i + 1 }}. &nbsp;
         <img
           src="../../../assets/images/{{ mob.operator }}.png"
-          width="70"
+          width="30"
           height="auto"
           alt=""
         />
@@ -25,9 +25,21 @@
         ></span>
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <div *ngIf="mob.subscriptions">
-      <div *ngFor="let sub of mob.subscriptions">
-        {{ sub.startdata }} {{ sub.enddate }}
+
+    <div *ngIf="mob.subscriptions.length != 0">
+      <div>
+        <table style="width: 100%">
+          <tr *ngFor="let sub of mob.subscriptions; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td *ngIf="sub.plan">₹ {{ sub.plan.amount }}</td>
+            <td *ngIf="sub.plan">
+              {{ sub.plan.calls }}, {{ sub.plan.data }} data,
+              {{ sub.plan.sms }} SMS
+            </td>
+            <td>Subscribed on: {{ sub.startDate | date: "mediumDate" }}</td>
+            <td>Plan expires on: {{ sub.endDate | date: "mediumDate" }}</td>
+          </tr>
+        </table>
       </div>
     </div>
     <h3 *ngIf="mob.subscriptions.length == 0">No Subscriptions available</h3>

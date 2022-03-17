@@ -1,0 +1,145 @@
+<div fxLayout="row" fxLayoutGap="100px  ">
+  <div class="plan-details">
+    <h2>Plan Details</h2>
+    <div *ngIf="!plan" class="spinner" style="text-align: center">
+      <mat-spinner
+        style="margin: 0 auto"
+        diameter="100"
+        strokeWidth="2"
+      ></mat-spinner>
+      <br />
+      <span>Getting plan details..</span>
+    </div>
+    <div>
+      <div *ngIf="plan" class="plan-card">
+        <mat-card style="width: 400px">
+          <mat-card-header>
+            <div
+              mat-card-avatar
+              style="
+                border: 1px solid #ccc;
+                border-radius: 50%;
+                font-size: 30px;
+                width: 40px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 40px;
+                font-weight: bolder;
+                color: red;
+              "
+            >
+              <span> {{ plan.operator | uppercase | slice: 0:1 }} </span>
+            </div>
+            <mat-card-title>₹ {{ plan.amount }} </mat-card-title>
+            <mat-card-subtitle>
+              Duration: {{ plan.duration }} days
+            </mat-card-subtitle>
+            <span style="flex: 1 1 auto"></span>
+            <mat-chip-list>
+              <mat-chip routerLink="/customer/recharge" color="primary"
+                >change plan</mat-chip
+              >
+            </mat-chip-list>
+          </mat-card-header>
+          <mat-card-content fxLayoutGap="20px">
+            <div class="plan" fxLayout="column">
+              <table>
+                <tr>
+                  <td><b>Calls:</b></td>
+                  <td colspan="3">{{ plan.calls }}</td>
+                </tr>
+                <tr>
+                  <td><b>Data:</b></td>
+                  <td>{{ plan.data }}</td>
+                  <td><b>SMS: </b></td>
+                  <td>{{ plan.sms }}</td>
+                </tr>
+                <tr *ngIf="plan.benefits">
+                  <td><b>Benefits: </b></td>
+                  <td colspan="3">{{ plan.benefits }}</td>
+                </tr>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="payment-details">
+    <h2>Payment options</h2>
+    <mat-radio-group [(ngModel)]="paymethod" fxLayoutGap="20px">
+      <mat-radio-button value="Credit card">Credit card</mat-radio-button>
+      <mat-radio-button value="Debit card">Debit card</mat-radio-button>
+      <mat-radio-button value="UPI">UPI</mat-radio-button>
+    </mat-radio-group>
+    <br />
+    <br />
+    <div *ngIf="paymethod">
+      <h2>Enter {{ paymethod }} details:</h2>
+      <div
+        *ngIf="paymethod == 'Credit card' || paymethod == 'Debit card'"
+        class="cards"
+        fxLayout="column"
+      >
+        <mat-form-field fxFlex="100" appearance="outline">
+          <mat-label>Card Number</mat-label>
+          <mat-icon matPrefix>credit_card</mat-icon>
+          <input
+            type="text"
+            matInput
+            (keyup)="numChange($event)"
+            [(ngModel)]="cardnumber"
+          />
+        </mat-form-field>
+        <div fxLayout="row">
+          <mat-form-field appearance="outline">
+            <mat-label>CVV</mat-label>
+            <input
+              matInput
+              type="password"
+              (keyup)="cvvChange()"
+              [(ngModel)]="cvv"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>calendar_today</mat-icon>
+            <mat-label>Expiry date</mat-label>
+            <input (keyup)="dateChange()" matInput [(ngModel)]="expirydate" />
+          </mat-form-field>
+        </div>
+        <hr />
+      </div>
+      <div class="upi" *ngIf="paymethod == 'UPI'">
+        <mat-form-field fxFlex="100" appearance="outline">
+          <mat-label>UPI ID</mat-label>
+          <input matInput type="text" [(ngModel)]="upi" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="plan" class="total" style="text-align: right">
+      <h3>
+        Total: <b> ₹ {{ plan.amount }}</b>
+      </h3>
+      <button
+        *ngIf="paymethod != 'UPI'"
+        [disabled]="!paymethod || !cardnumber || !cvv || !expirydate"
+        mat-raised-button
+        color="primary"
+        (click)="pay()"
+      >
+        <mat-icon style="font-size: 18px">lock</mat-icon> Pay ₹
+        {{ plan.amount }}
+      </button>
+      <button
+        *ngIf="paymethod == 'UPI'"
+        [disabled]="!upi"
+        mat-raised-button
+        color="primary"
+        (click)="pay()"
+      >
+        <mat-icon style="font-size: 18px">lock</mat-icon> Pay ₹
+        {{ plan.amount }}
+      </button>
+    </div>
+  </div>
+</div>

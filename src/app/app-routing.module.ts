@@ -1,3 +1,4 @@
+import { PaymentComponent } from './components/payment/payment.component';
 import { RechargeComponent } from './components/recharge/recharge.component';
 import { MobilesListComponent } from './components/mobiles-list/mobiles-list.component';
 import { CustomerProfileComponent } from './components/customer-profile/customer-profile.component';
@@ -31,6 +32,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path: 'profile',
+        component: CustomerProfileComponent,
+      },
+      {
         path: 'mobile-management',
         component: MobileManagementComponent,
         canActivate: [AuthGuard],
@@ -57,6 +62,10 @@ const routes: Routes = [
     component: AdminHomeComponent,
     children: [
       {
+        path: 'profile',
+        component: CustomerProfileComponent,
+      },
+      {
         path: 'customer-management',
         component: CustomerManagementComponent,
       },
@@ -81,6 +90,10 @@ const routes: Routes = [
       {
         path: 'recharge',
         component: RechargeComponent,
+      },
+      {
+        path: ':cid/:mid/payment/:pid',
+        component: PaymentComponent,
       },
     ],
   },

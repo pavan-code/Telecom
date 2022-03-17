@@ -62,8 +62,8 @@
           </mat-menu>
         </mat-list-item>
 
-        <mat-list-item *ngIf="actor == 'customer'">
-          <button routerLink="/customer/profile" mat-button>Profile</button>
+        <mat-list-item>
+          <button routerLink="/{{ actor }}/profile" mat-button>Profile</button>
         </mat-list-item>
 
         <mat-list-item *ngIf="actor == 'customer'">

@@ -1,0 +1,24 @@
+<div *ngIf="show" class="spinner" style="text-align: center; font-size: 18px">
+  <mat-spinner
+    style="margin: 0 auto"
+    diameter="100"
+    strokeWidth="3"
+  ></mat-spinner>
+  <br />
+  <span>Payment processing.. please wait</span>
+</div>
+<div
+  class="succes"
+  style="margin: 0 auto; text-align: center; font-size: 20px"
+  *ngIf="!show"
+>
+  <img
+    src="../../../assets/images/checked.png"
+    width="180px"
+    height="180px"
+    alt=""
+  />
+  <br />
+  <br />
+  <span>Recharge Successful!</span>
+</div>

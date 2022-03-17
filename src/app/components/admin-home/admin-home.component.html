@@ -31,6 +31,14 @@
         </mat-list-item>
 
         <mat-list-item *ngIf="actor == 'admin'">
+          <button routerLink="/admin/profile" mat-button>Profile</button>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="actor == 'staff'">
+          <button routerLink="/staff/profile" mat-button>Profile</button>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="actor == 'admin'">
           <button mat-button [matMenuTriggerFor]="menu">
             Staff Management
           </button>
