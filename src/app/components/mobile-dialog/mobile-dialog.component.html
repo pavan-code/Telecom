@@ -1,7 +1,11 @@
-<h2 mat-dialog-title style="text-align: center;">Add New Number</h2>
-<div *ngIf="show" class="spinner"  style="text-align: center;">
-    <mat-spinner style="margin: 0 auto;" diameter="100" strokeWidth="2"></mat-spinner>
-    <h3>Adding new number..</h3>
+<h2 mat-dialog-title style="text-align: center">Add New Number</h2>
+<div *ngIf="show" class="spinner" style="text-align: center">
+  <mat-spinner
+    style="margin: 0 auto"
+    diameter="100"
+    strokeWidth="2"
+  ></mat-spinner>
+  <h3>Adding new number..</h3>
 </div>
 <div *ngIf="!show" mat-dialog-content>
   <form [formGroup]="form" fxFlexLayout="column">
@@ -11,17 +15,9 @@
         <mat-select formControlName="operator">
           <mat-option value="">Select Operator</mat-option>
           <mat-option value="airtel">Airtel</mat-option>
-          <mat-option value="aircel">Aircel</mat-option>
-          <mat-option value="idea">Idea</mat-option>
-          <mat-option value="vodafone">Vodafone</mat-option>
-          <mat-option value="reliance">Reliance</mat-option>
-          <mat-option value="tata">Tata</mat-option>
           <mat-option value="bsnl">BSNL</mat-option>
-          <mat-option value="mtnl">MTNL</mat-option>
-          <mat-option value="mts">MTS</mat-option>
           <mat-option value="jio">Jio</mat-option>
-          <mat-option value="docomo">Docomo</mat-option>
-          <mat-option value="virgin">Virgin</mat-option>
+          <mat-option value="vi">Vi</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field fxFlex="50" appearance="outline">
@@ -47,6 +43,13 @@
   </form>
 </div>
 <div mat-dialog-actions align="end">
-  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="addMobile()">Add</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!form.valid"
+    (click)="addMobile()"
+  >
+    Add
+  </button>
   <button mat-button mat-dialog-close>Close</button>
 </div>

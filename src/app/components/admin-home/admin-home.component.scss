@@ -1,12 +1,28 @@
 .example-container {
-  height: calc(100vh - 64px);
+  height: calc(100vh - 54px);
   .example-sidenav {
     width: 20%;
   }
 }
 .example-sidenav-content {
   padding: 20px;
+  background: url(../../../assets/images/back1.jpg) no-repeat center;
+  background-size: cover;
+  min-height: calc(100vh - 54px);
+  height: auto;
 }
 .body {
   height: 100vh;
+}
+.mat-toolbar {
+  background: url(../../../assets/images/header.avif)
+    no-repeat center;
+  background-size: cover;
+  height: 54px;
+  color: #fff;
+}
+.mat-button,
+.mat-menu-item {
+  width: 100%;
+  text-align: left;
 }

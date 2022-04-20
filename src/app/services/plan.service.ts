@@ -29,10 +29,13 @@ export class PlanService {
       data
     );
   }
-  getotp(number: any) {
-    let data = {
-      to: '+918712077727',
-    };
-    return this.http.post('http://localhost:8082/prince', data);
+  getotp(email: string) {
+    // email = 'pavankumaranguluri1@gmail.com';
+    console.log(email);
+
+    return this.http.get(`http://localhost:8082/generate-otp/${email}`);
+  }
+  validate(otp: string) {
+    return this.http.get(`http://localhost:8082/validate-otp/${otp}`);
   }
 }

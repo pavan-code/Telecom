@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { MsgdialogComponent } from './../msgdialog/msgdialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,9 +20,11 @@ export class PaymentComponent implements OnInit {
   cid: any;
   mid: any;
   pid: any;
+  email: string = '';
 
   constructor(
     private planService: PlanService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private router: Router
@@ -31,6 +34,11 @@ export class PaymentComponent implements OnInit {
     this.cid = this.route.snapshot.params['cid'];
     this.mid = this.route.snapshot.params['mid'];
     this.pid = this.route.snapshot.params['pid'];
+    this.userService.getUserById(this.cid).subscribe((data: any) => {
+      console.log(data);
+
+      this.email = data.data.email;
+    });
     this.planService.getPlan(this.pid).subscribe((data: any) => {
       this.plan = data;
     });
@@ -70,14 +78,16 @@ export class PaymentComponent implements OnInit {
   pay() {
     this.dialog
       .open(MsgdialogComponent, {
-        width: '300px',
+        width: '400px',
         height: 'auto',
         disableClose: true,
         data: {
           cid: this.cid,
           mid: this.mid,
+          email: this.email,
           body: {
             planId: this.pid,
+            paymentMethod: this.paymethod,
           },
         },
       })

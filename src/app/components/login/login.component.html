@@ -1,40 +1,116 @@
-<mat-card fxLayout="column" class="login-box">
-  <h1 *ngIf = "!show" mat-card-title>Login</h1>
-  <div class="spinner" *ngIf = "show">
-    <mat-spinner diameter="100" strokeWidth="2"></mat-spinner> <br>
-    <p>Logging in..</p>
-  </div>
-  <form fxLayout="column" *ngIf = "!show" [formGroup]="loginForm" (ngSubmit)="login()">
-    
+<div class="body">
+  <img src="../../../assets/images/login.jpg" alt="" />
+  <mat-card *ngIf="!isForget && !showotp" fxLayout="column" class="login-box">
+    <h1 *ngIf="!show" mat-card-title>Login</h1>
+    <div class="spinner" *ngIf="show">
+      <mat-spinner diameter="100" strokeWidth="2"></mat-spinner> <br />
+      <p>Logging in..</p>
+    </div>
+    <form
+      fxLayout="column"
+      *ngIf="!show"
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+    >
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Email ID" formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          placeholder="Password"
+          formControlName="password"
+          type="password"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="type">
+          <mat-option selected value="">--select user--</mat-option>
+          <mat-option value="customer">Customer</mat-option>
+          <mat-option value="staff">Staff</mat-option>
+          <mat-option value="admin">Admin</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!loginForm.valid"
+      >
+        Login
+      </button>
+      <button color="primary" (click)="forget($event)" mat-button>
+        Forgot Password?
+      </button>
+    </form>
+  </mat-card>
+  <mat-card *ngIf="showotp">
+    <h1 mat-card-title>Two Factor Authentication</h1>
+    <p>
+      <strong> Please enter the OTP sent to your registered email </strong>
+    </p>
     <mat-form-field appearance="outline">
-      <input matInput placeholder="Email ID" formControlName="email" />
+      <mat-label>Enter OTP</mat-label>
+      <input type="number" name="" id="" matInput (keyup)="otpChange($event)" />
+    </mat-form-field>
+    <button mat-button color="primary" (click)="submit()">Submit OTP</button>
+  </mat-card>
+
+  <mat-card *ngIf="isForget">
+    <h1 mat-card-title>Forgot Password</h1>
+    <div *ngIf="showmail">
+      <p>
+        <strong> Please enter your registered email id </strong>
+      </p>
+      <mat-form-field appearance="outline">
+        <mat-label>Email ID</mat-label>
+        <input matInput type="email" [(ngModel)]="email" />
+      </mat-form-field>
+      <button mat-button (click)="requestOTP()">Request OTP</button>
+    </div>
+    <div *ngIf="!showmail && !validOTP">
+      <p>
+        <strong> Please enter the OTP sent to your registered email </strong>
+      </p>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter OTP</mat-label>
+        <input
+          type="number"
+          name=""
+          id=""
+          matInput
+          (keyup)="otpChange($event)"
+        />
+      </mat-form-field>
+      <button mat-button color="primary" (click)="validate()">
+        Submit OTP
+      </button>
+    </div>
+    <p *ngIf="validOTP" style="color: rgb(0, 193, 0)">
+      <strong>OTP validated Successfully!</strong>
+    </p>
+
+    <mat-form-field *ngIf="validOTP" appearance="outline">
+      <mat-label>New Password</mat-label>
+      <input type="password" matInput [(ngModel)]="newPass" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <input
-        matInput
-        placeholder="Password"
-        formControlName="password"
-        type="password"
-        />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-select formControlName="type">
-        <mat-option selected value="">--select user--</mat-option>
-        <mat-option value="customer">Customer</mat-option>
-        <mat-option value="staff">Staff</mat-option>
-        <mat-option value="admin">Admin</mat-option>
-      </mat-select>
+    <mat-form-field *ngIf="validOTP" appearance="outline">
+      <mat-label>Re-enter New Password</mat-label>
+      <input type="password" matInput [(ngModel)]="newPass1" />
     </mat-form-field>
 
     <button
-    mat-raised-button
-    color="primary"
-    type="submit"
-      class="btn btn-primary"
-      [disabled]="!loginForm.valid"
+      *ngIf="validOTP"
+      (click)="changePassword()"
+      [disabled]="!newPass || !newPass1"
+      mat-raised-button
+      color="primary"
     >
-      Login
+      Change password
     </button>
-  </form>
-</mat-card>
+  </mat-card>
+</div>

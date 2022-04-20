@@ -1,5 +1,5 @@
 <div
-  *ngIf="staff.length == 0"
+  *ngIf="!show"
   class="spinner"
   style="text-align: center; position: absolute; top: 40%; left: 40%"
 >
@@ -11,7 +11,7 @@
   <h3>Getting customers...</h3>
 </div>
 
-<div class="data">
+<div class="data" *ngIf="show">
   <div fxFlexLayout="row" fxLayoutAlign="space-between">
     <button mat-button routerLink="/staff/add-customer">
       <mat-icon>add</mat-icon> New Customer
@@ -158,7 +158,7 @@
                 [ngClass]="mob.active == true ? 'success' : 'error'"
                 style="width: 20px; height: 20px; border-radius: 50%"
               ></span>
-              <div
+              <!-- <div
                 class="subs"
                 [hidden]="mob.subscriptions.length == 0"
                 *ngIf="mob.subscriptions"
@@ -166,7 +166,7 @@
                 <span *ngFor="let sub of mob.subscriptions">
                   Plan expires on {{ sub.endDate | date: "mediumDate" }}
                 </span>
-              </div>
+              </div> -->
               <div class="nosubs" *ngIf="mob.subscriptions.length == 0">
                 <span>No Subscriptions available</span>
               </div>
@@ -177,9 +177,7 @@
     </ng-container>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">
-        No data matching the filter "{{ input.value }}"
-      </td>
+      <td class="mat-cell" colspan="4">No Customer Data available!</td>
     </tr>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

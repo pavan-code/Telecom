@@ -1,30 +1,29 @@
-<h2 style="text-align: center;" mat-dialog-title>{{operation}} Plan</h2>
-<div *ngIf="show" class="spinner"  style="text-align: center;">
-  <mat-spinner style="margin: 0 auto;" diameter="100" strokeWidth="2"></mat-spinner>
-  <h3>{{action}} plan..</h3>
+<h2 style="text-align: center" mat-dialog-title>{{ operation }} Plan</h2>
+<div *ngIf="show" class="spinner" style="text-align: center">
+  <mat-spinner
+    style="margin: 0 auto"
+    diameter="100"
+    strokeWidth="2"
+  ></mat-spinner>
+  <h3>{{ action }} plan..</h3>
 </div>
 <div *ngIf="!show" mat-dialog-content>
   <form [formGroup]="form" fxFlexLayout="column">
-    
     <div fxFlexLayout="row">
       <mat-form-field fxFlex="33" appearance="outline">
         <mat-label>Plan Operator</mat-label>
-        <mat-select [disabled]="mode=='edit'" formControlName="operator">
+        <mat-select [disabled]="mode == 'edit'" formControlName="operator">
           <mat-option value="">Select Operator</mat-option>
           <mat-option value="airtel">Airtel</mat-option>
-          <mat-option value="aircel">Aircel</mat-option>
-          <mat-option value="idea">Idea</mat-option>
-          <mat-option value="vodafone">Vodafone</mat-option>
-          <mat-option value="reliance">Reliance</mat-option>
-          <mat-option value="tata">Tata</mat-option>
           <mat-option value="bsnl">BSNL</mat-option>
-          <mat-option value="mtnl">MTNL</mat-option>
-          <mat-option value="mts">MTS</mat-option>
           <mat-option value="jio">Jio</mat-option>
-          <mat-option value="docomo">Docomo</mat-option>
-          <mat-option value="virgin">Virgin</mat-option>
+          <mat-option value="vi">VI</mat-option>
         </mat-select>
       </mat-form-field>
+      <!-- <mat-form-field *ngIf="mode == 'edit'">
+        <mat-label>Operator</mat-label>
+        <input type="text" matInput readonly formControlName="operator" />
+      </mat-form-field> -->
       <mat-form-field fxFlex="33" appearance="outline">
         <mat-label>Plan Amount</mat-label>
         <input matInput type="number" formControlName="amount" />
@@ -34,15 +33,32 @@
         <input matInput type="number" formControlName="duration" />
       </mat-form-field>
     </div>
-    <div >
-        <mat-form-field style="width: 100%;" appearance="outline">
-            <mat-label>Plan Description</mat-label>
-            <input matInput type="text" formControlName="info" />
-        </mat-form-field>
+    <div>
+      <mat-form-field style="width: 50%" appearance="outline">
+        <mat-label>Data</mat-label>
+        <input matInput type="text" formControlName="data" />
+      </mat-form-field>
+      <mat-form-field style="width: 50%" appearance="outline">
+        <mat-label>SMS</mat-label>
+        <input matInput type="number" formControlName="sms" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field style="width: 100%" appearance="outline">
+        <mat-label>Calls</mat-label>
+        <input matInput type="text" formControlName="calls" />
+      </mat-form-field>
     </div>
   </form>
 </div>
 <div mat-dialog-actions align="end">
-    <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="addPlan()"> {{operation}} </button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!form.valid"
+    (click)="addPlan()"
+  >
+    {{ operation }}
+  </button>
   <button mat-button mat-dialog-close>Close</button>
 </div>

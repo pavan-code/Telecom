@@ -29,6 +29,9 @@ export class UserService {
   getUserById(id: number) {
     return this.http.get('http://localhost:8082/customer/' + id);
   }
+  getUserByEmail(email: string) {
+    return this.http.get(`http://localhost:8082/email/${email}`);
+  }
   changePassword(id: number, password: string) {
     return this.http.put(
       `http://localhost:8082/customer/${id}/${password}`,

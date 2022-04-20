@@ -1,0 +1,95 @@
+<div class="body">
+  <div class="details" *ngIf="customer">
+    <h2>Customer details:</h2>
+    <table>
+      <tr>
+        <td>Customer name</td>
+        <td>: {{ customer.firstname }} {{ customer.lastname }}</td>
+      </tr>
+      <tr>
+        <td>Aadhar Number</td>
+        <td>: {{ customer.aadharNumber }}</td>
+      </tr>
+    </table>
+  </div>
+  <br />
+  <div class="monthyear">
+    <h2>Get Transactions during given time:</h2>
+    <mat-form-field appearance="outline">
+      <mat-label>Month</mat-label>
+      <mat-select (selectionChange)="monthChanged($event)">
+        <mat-option>--select month--</mat-option>
+        <mat-option value="{{ month.month }}" *ngFor="let month of months">
+          {{ month.month }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Year</mat-label>
+      <input
+        (keyup)="yearChanged($event)"
+        [(ngModel)]="year"
+        type="text"
+        matInput
+      />
+    </mat-form-field>
+    <button
+      [disabled]="!year || !month"
+      mat-stroked-button
+      (click)="getReceipt()"
+      color="primary"
+    >
+      Show transcations
+    </button>
+  </div>
+  <div *ngIf="subs.length !== 0 && show" class="receipts">
+    <h2>Transactions made on {{ month }}, {{ year }}</h2>
+    <mat-card *ngFor="let receipt of subs">
+      <mat-card-header>
+        <img src="../../../assets/images/checked.png" mat-card-avatar />
+        <h3>Recharge for {{ receipt.mobile }}</h3>
+      </mat-card-header>
+      <mat-card-content fxLayout="row" fxLayoutGap="30px">
+        <table>
+          <tr>
+            <td>Transaction ID</td>
+            <td>: TNX19691975{{ receipt.id }}</td>
+          </tr>
+          <tr>
+            <td>Transaction Date</td>
+            <td>: {{ receipt.startDate | date: "mediumDate" }}</td>
+          </tr>
+          <tr>
+            <td>Amount</td>
+            <td>: ₹ {{ receipt.plan.amount }}.00</td>
+          </tr>
+          <tr>
+            <td>Payment Mode</td>
+            <td>: {{ receipt.paymentMethod }}</td>
+          </tr>
+        </table>
+        <div class="details">
+          <img
+            src="../../../assets/images/{{
+              receipt.plan.operator | lowercase
+            }}.png"
+            width="30px"
+            alt=""
+          />
+          <div>
+            {{ receipt.plan.calls }}, {{ receipt.plan.data }} data,
+            {{ receipt.plan.sms }} SMS
+            <br />
+            {{ receipt.plan.benefits }}
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div *ngIf="subs.length == 0 && show">
+    <mat-card>
+      No transactions records found during
+      <b> {{ this.month }}, {{ this.year }} </b>
+    </mat-card>
+  </div>
+</div>

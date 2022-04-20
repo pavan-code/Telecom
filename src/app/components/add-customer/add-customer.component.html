@@ -1,4 +1,17 @@
-<div class="body">
+<div
+  *ngIf="show"
+  class="spinner"
+  style="text-align: center; position: absolute; top: 40%; left: 40%"
+>
+  <mat-spinner
+    style="margin: 0 auto"
+    diameter="100"
+    strokeWidth="2"
+  ></mat-spinner>
+  <h3>Adding new Customer...</h3>
+</div>
+
+<div *ngIf="!show" class="body">
   <!-- <pre>{{ form.value | json }}</pre> -->
   <h2>Add Customer</h2>
   <form [formGroup]="form" action="" fxLayout="column">
@@ -80,19 +93,18 @@
                 formControlName="operator"
                 (selectionChange)="operatorChanged($event)"
               >
-                <mat-option value="">Select Operator</mat-option>
+                <mat-option value="">--Select Operator--</mat-option>
                 <mat-option value="airtel">Airtel</mat-option>
                 <mat-option value="bsnl">BSNL</mat-option>
-                <mat-option value="idea">Idea</mat-option>
                 <mat-option value="jio">Jio</mat-option>
-                <mat-option value="vodafone">Vodafone</mat-option>
+                <mat-option value="vi">Vi</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="spec-width">
               <mat-label>Number</mat-label>
               <mat-select formControlName="number">
-                <mat-option value="">Select Operator</mat-option>
+                <mat-option value="">--Select Number--</mat-option>
                 <mat-option
                   *ngFor="let num of filteredNumbers"
                   [value]="num.number"

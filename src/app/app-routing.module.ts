@@ -1,3 +1,4 @@
+import { BillsComponent } from './components/bills/bills.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { RechargeComponent } from './components/recharge/recharge.component';
 import { MobilesListComponent } from './components/mobiles-list/mobiles-list.component';
@@ -94,6 +95,10 @@ const routes: Routes = [
       {
         path: ':cid/:mid/payment/:pid',
         component: PaymentComponent,
+      },
+      {
+        path: 'transactions',
+        component: BillsComponent,
       },
     ],
   },

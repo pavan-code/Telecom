@@ -1,7 +1,7 @@
 import { PlanDialogComponent } from './components/plan-dialog/plan-dialog.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,7 +32,7 @@ import { MatChipsModule } from '@angular/material/chips';
 
 // components
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
@@ -51,6 +51,7 @@ import { MobilesListComponent } from './components/mobiles-list/mobiles-list.com
 import { RechargeComponent } from './components/recharge/recharge.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { MsgdialogComponent } from './components/msgdialog/msgdialog.component';
+import { BillsComponent } from './components/bills/bills.component';
 
 @NgModule({
   declarations: [
@@ -74,10 +75,12 @@ import { MsgdialogComponent } from './components/msgdialog/msgdialog.component';
     RechargeComponent,
     PaymentComponent,
     MsgdialogComponent,
+    BillsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

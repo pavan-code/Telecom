@@ -36,14 +36,7 @@ export class CustomerManagementComponent implements OnInit {
   ) {}
   expandedElement: any;
 
-  displayedColumns: string[] = [
-    'id',
-    'name',
-    'email',
-    'aadhar',
-    'address',
-    'actions',
-  ];
+  displayedColumns: string[] = ['id', 'name', 'email', 'aadhar', 'address'];
   dataSource = new MatTableDataSource<Number>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -51,8 +44,10 @@ export class CustomerManagementComponent implements OnInit {
   matSort!: MatSort;
   staffId: any;
   staff: any[] = [];
+  show: boolean = false;
 
   ngOnInit(): void {
+    this.show = false;
     this.staffId = localStorage.getItem('id');
     this.staffId = Number.parseInt(this.staffId);
     this.getCustomers();
@@ -64,6 +59,7 @@ export class CustomerManagementComponent implements OnInit {
       .getCustomersByStaffId(this.staffId)
       .subscribe((data: any) => {
         setTimeout(() => {
+          this.show = true;
           console.log(data);
           this.staff = data;
           this.dataSource = new MatTableDataSource(this.staff);

@@ -1,6 +1,6 @@
 <div class="body" [ngClass]="{ 'dark-theme': isDarkMode }">
   <mat-toolbar color="primary" fxLayoutAlign="space-between center">
-    <mat-slide-toggle [(ngModel)]="isDarkMode"></mat-slide-toggle>
+    <!-- <mat-slide-toggle [(ngModel)]="isDarkMode"></mat-slide-toggle> -->
     <div fxFlex="1 1 auto">
       <button
         mat-icon-button
@@ -12,8 +12,8 @@
       </button>
       <span>Telecom Billing System</span> &nbsp;
     </div>
-    <span fxFlex="1 1 auto"
-      >Welcome {{ username | titlecase }}
+    <span
+      >Hi, {{ username | titlecase }}
       <button mat-stroked-button (click)="logout()">
         Logout
         <mat-icon>logout</mat-icon>
@@ -25,21 +25,37 @@
     <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="opened">
       <mat-selection-list>
         <mat-list-item *ngIf="actor == 'admin'">
-          <button routerLink="/admin/mobile-management" mat-button>
-            Mobile Number Management
+          <button routerLink="/admin/profile" mat-button>
+            <img src="../../../assets/images/profile.png" width="25px" alt="" />
+            Profile
           </button>
         </mat-list-item>
 
         <mat-list-item *ngIf="actor == 'admin'">
-          <button routerLink="/admin/profile" mat-button>Profile</button>
+          <button routerLink="/admin/mobile-management" mat-button>
+            <img
+              src="../../../assets/images/mobile management.png"
+              width="25px"
+              alt=""
+            />
+            Mobile Management
+          </button>
         </mat-list-item>
 
         <mat-list-item *ngIf="actor == 'staff'">
-          <button routerLink="/staff/profile" mat-button>Profile</button>
+          <button routerLink="/staff/profile" mat-button>
+            <img src="../../../assets/images/profile.png" width="25px" alt="" />
+            Profile
+          </button>
         </mat-list-item>
 
         <mat-list-item *ngIf="actor == 'admin'">
           <button mat-button [matMenuTriggerFor]="menu">
+            <img
+              src="../../../assets/images/staff management.png"
+              width="25px"
+              alt=""
+            />
             Staff Management
           </button>
           <mat-menu #menu="matMenu">
@@ -53,12 +69,22 @@
         </mat-list-item>
         <mat-list-item *ngIf="actor == 'admin'">
           <button routerLink="/admin/plan-management" mat-button>
+            <img
+              src="../../../assets/images/mobile management.png"
+              width="25px"
+              alt=""
+            />
             Plan Management
           </button>
         </mat-list-item>
 
         <mat-list-item *ngIf="actor == 'staff'">
           <button mat-button [matMenuTriggerFor]="menu">
+            <img
+              src="../../../assets/images/staff management.png"
+              width="25px"
+              alt=""
+            />
             Customer Management
           </button>
           <mat-menu #menu="matMenu">
@@ -66,7 +92,7 @@
               Add Customer
             </button>
             <button routerLink="/staff/customer-management" mat-menu-item>
-              Manage Customers
+              View Customers
             </button>
           </mat-menu>
         </mat-list-item>

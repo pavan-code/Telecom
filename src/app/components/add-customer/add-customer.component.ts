@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
@@ -8,14 +9,20 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./add-customer.component.scss'],
 })
 export class AddCustomerComponent implements OnInit {
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private snackbar: MatSnackBar
+  ) {}
 
   form!: FormGroup;
   numbers: any[] = [];
   filteredNumbers: any[] = [];
   staffId: any;
+  show: boolean = false;
 
   ngOnInit(): void {
+    this.show = false;
     this.staffId = localStorage.getItem('id');
     this.getNumbers();
     this.createform();
@@ -106,13 +113,30 @@ export class AddCustomerComponent implements OnInit {
     const control = <FormArray>this.subs(i);
     control.removeAt(j);
   }
+  openSnackBar(message: string, action: string, cls: string) {
+    this.snackbar.open(message, action, {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: [cls],
+    });
+  }
+
   addCustomer() {
+    this.show = true;
     const data = this.form.value;
     data['type'] = 'customer';
     data['staffId'] = this.staffId;
     console.log(data);
     this.userService.addStaff(data).subscribe((data: any) => {
+      this.show = false;
       console.log(data);
+      if (data.Status == 'true') {
+        this.openSnackBar('Customer added successfully', '', 'success');
+        this.ngOnInit();
+      } else {
+        this.openSnackBar('Failed to create Customer', '', 'error');
+      }
     });
   }
 }

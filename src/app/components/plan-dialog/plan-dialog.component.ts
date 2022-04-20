@@ -20,16 +20,15 @@ export class PlanDialogComponent implements OnInit {
   }
   show: boolean = false;
   form!: FormGroup;
-  operation: string = "Add";
-  action: string = "Adding"
+  operation: string = 'Add';
+  action: string = 'Adding';
   ngOnInit(): void {
-    if(this.mode === 'edit') {
-      this.operation = "Update";
-      this.action = "Updating"
-    }
-    else {
-      this.operation = "Add";
-      this.action = "Adding"
+    if (this.mode === 'edit') {
+      this.operation = 'Update';
+      this.action = 'Updating';
+    } else {
+      this.operation = 'Add';
+      this.action = 'Adding';
     }
     this.createForm();
   }
@@ -38,15 +37,19 @@ export class PlanDialogComponent implements OnInit {
     if (this.mode === 'add') {
       this.form = this.fb.group({
         operator: ['', [Validators.required]],
-        info: ['', [Validators.required]],
+        calls: ['', [Validators.required]],
+        data: ['', [Validators.required]],
+        sms: ['', [Validators.required]],
         amount: ['', [Validators.required]],
         duration: ['', [Validators.required]],
       });
     } else {
       this.form = this.fb.group({
         id: [this.plan.id],
-        operator: [this.plan.operator, {disabled: true}],
-        info: [this.plan.info, [Validators.required]],
+        operator: [this.plan.operator, { disabled: true }],
+        calls: [this.plan.calls, [Validators.required]],
+        data: [this.plan.data, [Validators.required]],
+        sms: [this.plan.sms, [Validators.required]],
         amount: [this.plan.amount, [Validators.required]],
         duration: [this.plan.duration, [Validators.required]],
       });

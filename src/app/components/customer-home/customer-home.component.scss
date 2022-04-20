@@ -1,5 +1,5 @@
 .example-container {
-  height: calc(100vh - 64px);
+  height: calc(100vh - 54px);
   .example-sidenav {
     width: 20%;
   }
@@ -9,4 +9,24 @@
 }
 .body {
   height: 100vh;
+}
+.example-sidenav-content {
+  padding: 20px;
+  background: url(../../../assets/images/back1.jpg) no-repeat center;
+  background-size: cover;
+  min-height: calc(100vh - 54px);
+  height: auto;
+}
+
+.mat-toolbar {
+  background: url("https://images.unsplash.com/photo-1497091071254-cc9b2ba7c48a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80")
+    no-repeat center;
+  background-size: cover;
+  color: #fff;
+  height: 54px;
+}
+.mat-button,
+.mat-menu-item {
+  width: 100%;
+  text-align: left;
 }

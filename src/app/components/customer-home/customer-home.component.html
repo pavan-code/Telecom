@@ -11,8 +11,8 @@
       </button>
       <span>Telecom Billing System</span> &nbsp;
     </div>
-    <span fxFlex="1 1 auto"
-      >Welcome {{ username | titlecase }}
+    <span
+      >Hi, {{ username | titlecase }}
       <button mat-stroked-button (click)="logout()">
         Logout
         <mat-icon>logout</mat-icon>
@@ -57,21 +57,45 @@
               Add Customer
             </button>
             <button routerLink="/staff/customer-management" mat-menu-item>
-              Manage Customers
+              View Customers
             </button>
           </mat-menu>
         </mat-list-item>
 
         <mat-list-item>
-          <button routerLink="/{{ actor }}/profile" mat-button>Profile</button>
+          <button routerLink="/{{ actor }}/profile" mat-button>
+            <img src="../../../assets/images/profile.png" width="25px" alt="" />
+            Profile
+          </button>
         </mat-list-item>
 
         <mat-list-item *ngIf="actor == 'customer'">
-          <button routerLink="/customer/mobiles" mat-button>Mobiles</button>
+          <button routerLink="/customer/mobiles" mat-button>
+            <img src="../../../assets/images/call.png" width="25px" alt="" />
+            Mobiles
+          </button>
         </mat-list-item>
 
         <mat-list-item *ngIf="actor == 'customer'">
-          <button routerLink="/customer/recharge" mat-button>Recharge</button>
+          <button routerLink="/customer/recharge" mat-button>
+            <img
+              src="../../../assets/images/recharge.png"
+              width="25px"
+              alt=""
+            />
+            Recharge
+          </button>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="actor == 'customer'">
+          <button routerLink="/customer/transactions" mat-button>
+            <img
+              src="../../../assets/images/transaction.png"
+              width="25px"
+              alt=""
+            />
+            Transactions
+          </button>
         </mat-list-item>
       </mat-selection-list>
     </mat-drawer>

@@ -1,6 +1,10 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, HostListener, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  ActivatedRouteSnapshot,
+  ActivatedRoute,
+} from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
@@ -14,12 +18,13 @@ export class AdminHomeComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.getScreenSize();
   }
   isDarkMode: boolean = false;
-
+  url: string = '';
   sidebar!: string;
   opened!: boolean;
   actor: any = '';
@@ -27,6 +32,8 @@ export class AdminHomeComponent implements OnInit {
   ngOnInit(): void {
     this.actor = localStorage.getItem('actor');
     this.username = localStorage.getItem('name');
+    this.url = this.route.snapshot.url[0].path;
+    console.log(this.route.snapshot.url);
   }
   @HostListener('window:resize', ['$event'])
   getScreenSize() {

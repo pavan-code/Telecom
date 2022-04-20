@@ -18,20 +18,48 @@ export class MsgdialogComponent implements OnInit {
   ) {
     this.paydetails = data;
   }
+  otp: string = '';
+  success: boolean = false;
+  enteredOTP: string = '';
 
   ngOnInit(): void {
-    this.planService
-      .subscribe(this.paydetails.cid, this.paydetails.mid, this.paydetails.body)
-      .subscribe((data: any) => {
-        console.log(data);
-        if (data.Status == 'true') {
-          setTimeout(() => {
-            this.show = false;
-            setTimeout(() => {
-              this.dialogRef.close();
-            }, 1500);
-          }, 1500);
-        }
-      });
+    this.planService.getotp(this.paydetails.email).subscribe((data: any) => {
+      console.log(data);
+      this.otp = data;
+    });
+  }
+  otpChange(event: any) {
+    console.log(event.target.value);
+    this.enteredOTP = event.target.value;
+  }
+  submit() {
+    this.show = false;
+    this.success = false;
+    this.planService.validate(this.enteredOTP).subscribe((data) => {
+      if (data == true) {
+        this.planService
+          .subscribe(
+            this.paydetails.cid,
+            this.paydetails.mid,
+            this.paydetails.body
+          )
+          .subscribe((data: any) => {
+            console.log(data);
+            if (data.Status == 'true') {
+              setTimeout(() => {
+                this.show = true;
+                this.success = true;
+                setTimeout(() => {
+                  this.dialogRef.close();
+                }, 1500);
+              }, 1500);
+            }
+          });
+      } else {
+        alert('invalid otp');
+        this.show = true;
+        this.success = false;
+      }
+    });
   }
 }

@@ -1,4 +1,14 @@
-<div *ngIf="show" class="spinner" style="text-align: center; font-size: 18px">
+<div class="otp" *ngIf="show && !success">
+  <h2 mat-dialog-title>OTP Vertification</h2>
+  <p><strong> Please enter the OTP sent to your registered email </strong></p>
+  <mat-form-field appearance="outline">
+    <mat-label>Enter OTP</mat-label>
+    <input type="number" name="" id="" matInput (keyup)="otpChange($event)" />
+  </mat-form-field>
+  <button mat-button color="primary" (click)="submit()">Submit OTP</button>
+</div>
+
+<div *ngIf="!show" class="spinner" style="text-align: center; font-size: 18px">
   <mat-spinner
     style="margin: 0 auto"
     diameter="100"
@@ -10,7 +20,7 @@
 <div
   class="succes"
   style="margin: 0 auto; text-align: center; font-size: 20px"
-  *ngIf="!show"
+  *ngIf="success"
 >
   <img
     src="../../../assets/images/checked.png"

@@ -1,19 +1,23 @@
 .data {
-  table{
+  table {
     width: 100%;
   }
 }
-  .mat-paginator {
-    width: 100%;
-  }
-  th.mat-sort-header-sorted {
-    color: black;
-  }
-  .green {
-    background-color: #4caf50;
-    border-radius: 50%;
-  }
-  .red {
-    background-color: #f44336;
-    border-radius: 50%;
-  }
+.mat-paginator {
+  width: 100%;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+.green {
+  background-color: #4caf50;
+  border-radius: 50%;
+}
+.red {
+  background-color: #f44336;
+  border-radius: 50%;
+}
+.mat-header-cell {
+  font-weight: bolder;
+  font-size: 16px;
+}
